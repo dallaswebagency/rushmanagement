@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rush Management | Residential &amp; Commercial Services in Edmonton</title>
+<meta name="description" content="Rush Management provides a quality service to residential and commercial clients in Edmonton: disaster restoration, cleaning and janitorial, property management, skid steer and landscaping services.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#E51D35; --red-deep:#B8132A;
+  --blue:#204391; --navy:#1F3E75; --night:#0F2147;
+  --ink:#16213A; --muted:#55627D; --paper:#F3F5F9; --line:#D9E0EC; --white:#FFFFFF;
+  --f:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --wrap:1240px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;font-family:var(--f);font-stretch:100%;color:var(--ink);background:var(--white);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.display{font-stretch:125%;font-weight:850;letter-spacing:-.015em;line-height:1.02}
+
+/* top strip */
+.strip{background:var(--night);color:#C9D3E8;font-size:14px}
+.strip .wrap{display:flex;gap:28px;align-items:center;min-height:40px;flex-wrap:wrap}
+.strip a{text-decoration:none;color:#fff}
+.strip .live{margin-left:auto;display:flex;align-items:center;gap:9px}
+.strip .live i{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(229,29,53,.7);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 9px rgba(229,29,53,0)}100%{box-shadow:0 0 0 0 rgba(229,29,53,0)}}
+
+/* header */
+header.bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.bar .wrap{display:flex;align-items:center;gap:36px;min-height:86px}
+.logo img{height:58px;width:auto}
+nav.main{display:flex;gap:30px;margin-left:auto}
+nav.main a{text-decoration:none;font-weight:600;font-size:15.5px;position:relative;padding:6px 0}
+nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--red);transition:right .25s}
+nav.main a:hover::after,nav.main a[aria-current]::after{right:0}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:15.5px;padding:15px 24px;border-radius:3px;transition:background .2s,transform .2s,color .2s}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:var(--red-deep)}
+.btn-ghost{color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.btn-ghost:hover{background:#fff;color:var(--navy)}
+.menu-btn{display:none;margin-left:auto;background:none;border:1.5px solid var(--line);border-radius:3px;padding:10px 14px;font:600 15px var(--f);color:var(--ink)}
+
+/* hero */
+.hero{position:relative;color:#fff;background:var(--night);overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:url(images/hero-canada.jpg) 70% 40%/cover no-repeat;transform:scale(1.06);animation:drift 18s ease-out forwards}
+@keyframes drift{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(15,33,71,.96) 0%,rgba(15,33,71,.88) 38%,rgba(15,33,71,.35) 70%,rgba(15,33,71,.15) 100%)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;min-height:min(78vh,720px);padding-top:70px;padding-bottom:150px}
+.hero-copy{position:relative}
+.hero .kicker{font-size:16px;color:#C9D3E8;margin:0 0 22px;display:flex;align-items:center;gap:12px}
+.hero .kicker svg{flex:none}
+.hero h1{font-size:clamp(42px,6vw,82px);margin:0 0 26px;max-width:12ch}
+.hero p.lead{font-size:19px;line-height:1.6;max-width:50ch;color:#DCE3F1;margin:0 0 36px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+/* signature: the logo's red orbit drawing around the roof */
+.orbit{justify-self:center;width:min(100%,430px);aspect-ratio:1}
+.orbit svg{width:100%;height:100%;overflow:visible}
+.orbit .ring{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.8s .35s cubic-bezier(.6,.1,.2,1) forwards}
+.orbit .house{fill:none;stroke:#fff;stroke-width:4;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s 1.2s ease-out forwards}
+.orbit .win{fill:#fff;opacity:0;animation:fade .6s 2.4s forwards}
+.orbit .badge text{font-family:var(--f)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{to{opacity:1}}
+/* service rail (the original slider's five captions) */
+.rail{position:absolute;left:0;right:0;bottom:0;background:rgba(15,33,71,.78);border-top:1px solid rgba(255,255,255,.16);backdrop-filter:blur(6px)}
+.rail ul{list-style:none;margin:0 auto;padding:0 28px;max-width:var(--wrap);display:grid;grid-template-columns:repeat(5,1fr)}
+.rail li+li{border-left:1px solid rgba(255,255,255,.16)}
+.rail a{display:block;text-decoration:none;padding:24px 20px;font-weight:600;font-size:15.5px;color:#fff;transition:background .2s}
+.rail a small{display:block;color:#9FB0D2;font-weight:500;font-size:13px;margin-bottom:4px}
+.rail a:hover{background:var(--red)}
+.rail a:hover small{color:#fff}
+
+/* about */
+.about{padding:120px 0 110px}
+.about .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:70px;align-items:start}
+.about h2{font-size:clamp(32px,3.8vw,50px);margin:0 0 28px;color:var(--navy)}
+.about p{color:var(--muted);margin:0 0 18px;max-width:58ch}
+.about p.first{font-size:21px;color:var(--ink);line-height:1.5}
+.about figure{margin:0;position:relative}
+.about figure img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:4px}
+.about figcaption{position:absolute;left:-28px;bottom:-34px;background:var(--red);color:#fff;padding:22px 26px;max-width:290px;font-weight:600;font-size:16px;line-height:1.35;border-radius:3px}
+.about figcaption b{display:block;font-stretch:125%;font-size:22px;font-weight:850;margin-bottom:4px}
+.about .scope{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;padding:0;list-style:none}
+.about .scope li{border:1.5px solid var(--line);padding:8px 14px;border-radius:40px;font-size:14.5px;font-weight:600;color:var(--navy)}
+
+/* services switcher */
+.services{background:var(--paper);padding:110px 0}
+.services .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:50px;flex-wrap:wrap}
+.services h2{font-size:clamp(32px,3.8vw,50px);margin:0;color:var(--navy);max-width:14ch}
+.services .head p{max-width:44ch;color:var(--muted);margin:0}
+.switch{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:0;background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.tabs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tabs li{border-bottom:1px solid var(--line)}
+.tabs li:last-child{border-bottom:0}
+.tabs button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:40px 1fr;gap:16px;padding:26px 32px;align-items:start;transition:background .2s}
+.tabs button:focus-visible{outline:3px solid var(--red);outline-offset:-3px}
+.tabs .ico{width:40px;height:40px;color:var(--blue)}
+.tabs strong{display:block;font-stretch:118%;font-weight:800;font-size:22px;color:var(--ink);line-height:1.2}
+.tabs span.desc{display:block;color:var(--muted);font-size:15.5px;max-height:0;overflow:hidden;opacity:0;transition:max-height .35s,opacity .3s,margin .3s}
+.tabs button[aria-selected="true"]{background:var(--night)}
+.tabs button[aria-selected="true"] strong{color:#fff}
+.tabs button[aria-selected="true"] .ico{color:var(--red)}
+.tabs button[aria-selected="true"] span.desc{max-height:120px;opacity:1;margin-top:8px;color:#C9D3E8}
+.tabs button:not([aria-selected="true"]):hover{background:var(--paper)}
+.stage{position:relative;min-height:460px;background:var(--night)}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .5s,transform .8s}
+.stage img.on{opacity:1;transform:none}
+.stage .tag{position:absolute;right:20px;bottom:20px;background:#fff;color:var(--navy);padding:12px 18px;border-radius:3px;font-weight:700;font-size:15px;text-decoration:none;display:flex;gap:10px;align-items:center}
+.stage .tag:hover{background:var(--red);color:#fff}
+
+/* why */
+.why{background:var(--navy);color:#fff;padding:120px 0;position:relative;overflow:hidden}
+.why::after{content:"";position:absolute;right:-180px;top:-120px;width:620px;height:420px;border:3px solid rgba(229,29,53,.55);border-radius:50%;transform:rotate(-14deg);pointer-events:none}
+.why .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:80px;position:relative;z-index:1}
+.why h2{font-size:clamp(34px,4.2vw,58px);margin:0 0 22px}
+.why .side{align-self:start;position:sticky;top:130px}
+.why .side p{color:#C9D3E8;max-width:36ch}
+.points{display:grid;gap:0}
+.point{display:grid;grid-template-columns:70px 1fr;gap:24px;padding:34px 0;border-top:1px solid rgba(255,255,255,.18)}
+.point:last-child{border-bottom:1px solid rgba(255,255,255,.18)}
+.point svg{width:54px;height:54px;color:var(--red)}
+.point h3{font-stretch:115%;font-weight:800;font-size:24px;margin:0 0 8px;line-height:1.2}
+.point p{margin:0;color:#C9D3E8;max-width:56ch}
+
+/* specialties */
+.spec{padding:110px 0}
+.spec .wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:60px}
+.spec h2{font-size:30px;margin:6px 0 0;color:var(--navy)}
+.spec .side p{color:var(--muted);font-size:15.5px}
+.spec ul{list-style:none;margin:0;padding:0;text-wrap:pretty}
+.spec li{font-stretch:112%;font-weight:750;font-size:clamp(22px,2.6vw,36px);line-height:1.35;color:var(--ink);display:inline}
+.spec li:not(:last-child)::after{content:"";display:inline-block;vertical-align:.12em;width:20px;height:17px;margin:0 16px;background:var(--red);clip-path:polygon(50% 0,100% 55%,82% 55%,82% 100%,18% 100%,18% 55%,0 55%)}
+.spec li:nth-child(even){color:var(--blue)}
+
+/* service area */
+.area{background:var(--paper);padding:110px 0}
+.area .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:70px;align-items:center}
+.radar{position:relative;aspect-ratio:1;max-width:500px;width:100%;justify-self:center}
+.radar svg{width:100%;height:100%}
+.radar .pulse{fill:none;stroke:var(--blue);stroke-width:1.5;opacity:0;transform-origin:250px 250px;animation:radar 4.5s infinite}
+.radar .pulse:nth-of-type(2){animation-delay:1.5s}.radar .pulse:nth-of-type(3){animation-delay:3s}
+@keyframes radar{0%{transform:scale(.15);opacity:.9}100%{transform:scale(1);opacity:0}}
+.area h2{font-size:clamp(32px,3.8vw,50px);margin:0 0 22px;color:var(--navy)}
+.area p{color:var(--muted);max-width:52ch}
+.clock{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
+.clock div{border-left:4px solid var(--red);padding:4px 0 4px 18px}
+.clock b{display:block;font-stretch:125%;font-weight:850;font-size:44px;line-height:1;color:var(--navy)}
+.clock span{font-size:15px;color:var(--muted)}
+
+/* visit + stats */
+.visit{position:relative;color:#fff;isolation:isolate;overflow:hidden}
+.visit>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.visit::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(15,33,71,.95),rgba(15,33,71,.75) 55%,rgba(15,33,71,.45))}
+.visit .wrap{padding-top:120px;padding-bottom:0}
+.visit h2{font-size:clamp(34px,4.6vw,62px);margin:0 0 22px;max-width:15ch}
+.visit p{max-width:52ch;color:#DCE3F1;font-size:18.5px;margin:0 0 34px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:90px;background:#fff;color:var(--ink);border-radius:4px 4px 0 0}
+.stats div{padding:38px 36px;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-stretch:125%;font-weight:900;font-size:clamp(44px,5vw,68px);line-height:1;color:var(--red)}
+.stats div:nth-child(2) b{color:var(--blue)}
+.stats span{display:block;margin-top:10px;font-weight:600;color:var(--navy)}
+
+/* contact */
+.contact{background:var(--paper);padding:100px 0}
+.contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:60px;align-items:start}
+.contact h2{font-size:clamp(32px,3.8vw,50px);margin:0 0 18px;color:var(--navy)}
+.contact .side p{color:var(--muted);max-width:40ch}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.cards a,.cards div{background:#fff;padding:30px;text-decoration:none;display:block;transition:background .2s}
+.cards a:hover{background:var(--night);color:#fff}
+.cards a:hover small{color:#9FB0D2}
+.cards small{display:block;color:var(--muted);font-size:14px;margin-bottom:6px}
+.cards strong{font-stretch:112%;font-size:21px;font-weight:750;line-height:1.3}
+.cards .wide{grid-column:1/-1}
+
+/* footer */
+footer{background:var(--night);color:#C9D3E8;padding:70px 0 30px;font-size:15px}
+footer .top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:50px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.14)}
+footer img{height:64px;width:auto;margin-bottom:20px}
+footer h4{color:#fff;font-size:16px;margin:0 0 16px;font-weight:700}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+footer a{text-decoration:none;color:#C9D3E8}
+footer a:hover{color:#fff}
+footer .bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:26px;font-size:14px}
+footer .bottom a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.mob{display:none}
+
+/* reveal on scroll (single treatment, subtle) */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:1040px){
+  nav.main,header.bar .btn-red{display:none}
+  .menu-btn{display:block}
+  nav.main.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#fff;padding:18px 28px;border-bottom:1px solid var(--line);gap:10px}
+  .hero .wrap{grid-template-columns:1fr;padding-bottom:40px}
+  .orbit{display:none}
+  .rail{position:static}
+  .rail ul{grid-template-columns:1fr 1fr;padding:0}
+  .rail li{border-top:1px solid rgba(255,255,255,.16)}
+  .about .wrap,.why .wrap,.area .wrap,.contact .wrap,.switch{grid-template-columns:1fr}
+  .why .side{position:static}
+  .stage{min-height:320px;order:-1}
+  .spec .wrap{grid-template-columns:1fr;gap:20px}
+  footer .top{grid-template-columns:1fr}
+  .about figcaption{left:16px}
+}
+@media (max-width:640px){
+  body{font-size:16px;padding-bottom:64px}
+  .wrap{padding:0 20px}
+  .strip .wrap span.hide-s{display:none}
+  .logo img{height:46px}
+  .stats{grid-template-columns:1fr}
+  .stats div{border-right:0;border-bottom:1px solid var(--line)}
+  .cards{grid-template-columns:1fr}
+  .rail ul{grid-template-columns:1fr}
+  .rail li+li{border-left:0}
+  .mob{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;padding-bottom:env(safe-area-inset-bottom,0px);background:var(--night)}
+  .mob a{text-align:center;padding:18px;color:#fff;text-decoration:none;font-weight:700}
+  .mob a+a{background:var(--red)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .orbit .ring,.orbit .house{stroke-dashoffset:0}.orbit .win{opacity:1}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="strip">
+  <div class="wrap">
+    <span class="hide-s">Contact us</span>
+    <a href="tel:7804699323">780-469-9323</a>
+    <a href="mailto:info@rushm.ca">info@rushm.ca</a>
+    <span class="live"><i></i>Ready to help 24 hours a day, 7 days a week</span>
+  </div>
+</div>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Rush Management home"><img src="images/logo.png" alt="Rush Management Ltd. Property Management and Maintenance" width="635" height="218"></a>
+    <nav class="main" id="nav" aria-label="Main">
+      <a href="https://rushmanagement.ca/" aria-current="page">Home</a>
+      <a href="https://rushmanagement.ca/services/">Services</a>
+      <a href="https://rushmanagement.ca/why-to-choose-us/">About</a>
+      <a href="https://rushmanagement.ca/contact-us-2/">Contact us</a>
+    </nav>
+    <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="hero-bg" role="img" aria-label="Canada seen from space"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="kicker">
+        <svg width="26" height="22" viewBox="0 0 26 22" aria-hidden="true"><path d="M13 1 1 11h3v10h18V11h3z" fill="none" stroke="#E51D35" stroke-width="2.4" stroke-linejoin="round"/></svg>
+        Residential &amp; commercial services in Edmonton
+      </p>
+      <h1 class="display">Restoring property to pre&#8209;loss condition.</h1>
+      <p class="lead">Edmonton’s premier disaster restoration company, with the best restoration services for damage caused by flooding, fire and storms.</p>
+      <div class="ctas">
+        <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
+        <a class="btn btn-ghost" href="tel:7804699323">Call 780-469-9323</a>
+      </div>
+    </div>
+    <div class="orbit" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <path d="M80 210 200 95 320 210V300H80z" fill="rgba(15,33,71,.45)"/>
+        <ellipse class="ring" cx="200" cy="215" rx="185" ry="120" transform="rotate(-14 200 215)"/>
+        <path class="house" d="M80 210 200 95 320 210 M110 182V300H290V182 M248 130v-22h26v47"/>
+        <path class="house" d="M176 300v-62h48v62"/>
+        <g class="win"><rect x="182" y="150" width="15" height="15"/><rect x="203" y="150" width="15" height="15"/><rect x="182" y="171" width="15" height="15"/><rect x="203" y="171" width="15" height="15"/></g>
+      </svg>
+    </div>
+  </div>
+  <nav class="rail" aria-label="Our services">
+    <ul>
+      <li><a href="#services" data-go="0"><small>Flood, fire &amp; storm</small>Restoration projects</a></li>
+      <li><a href="#services" data-go="1"><small>Homes &amp; businesses</small>Cleaning &amp; Janitorial</a></li>
+      <li><a href="#services" data-go="2"><small>Maintenance</small>Property management</a></li>
+      <li><a href="#services" data-go="3"><small>Debris &amp; dumpsters</small>Skid steer services</a></li>
+      <li><a href="#services" data-go="4"><small>Snow removal too</small>Landscaping services</a></li>
+    </ul>
+  </nav>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="rv">
+      <h2 class="display">Rush Management</h2>
+      <p class="first">We aim to restore property to pre-loss condition after the unfortunate event of a disaster.</p>
+      <p>We guarantee to provide the best restoration services for damage caused by flooding, fire and storms. We also offer mould remediation by third party referral company, structural drying, contents remediation, carpet cleaning and more.</p>
+      <p>As qualified builders we know the best methods of restoration and repair, and provide maintenance to prevent future disasters occurring.</p>
+      <ul class="scope" aria-label="Restoration services">
+        <li>Flooding</li><li>Fire</li><li>Storms</li><li>Structural drying</li><li>Contents remediation</li><li>Carpet cleaning</li>
+      </ul>
+    </div>
+    <figure class="rv">
+      <img src="images/about-restoration.jpg" alt="Rush Management restoration crew at work" width="1600" height="900">
+      <figcaption><b>Qualified builders</b>We know the best methods of restoration and repair.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="head rv">
+      <h2 class="display">Residential &amp; commercial services</h2>
+      <p>One of the most experienced multi-service companies in Edmonton. Choose a service to see what it covers.</p>
+    </div>
+    <div class="switch rv">
+      <ul class="tabs" role="tablist" aria-label="Services">
+        <li><button role="tab" aria-selected="true" aria-controls="stage" data-i="0">
+          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 20 6l15 13M9 16v18h22V16"/><path d="M20 20c-3 4-4 6-4 8a4 4 0 0 0 8 0c0-2-1-4-4-8z"/></svg>
+          <span><strong>Restoration projects</strong><span class="desc">Water damage, structural drying, contents remediation, renovation and demolition projects.</span></span></button></li>
+        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="1">
+          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h12v8H14zM12 12h16l2 24H10z"/><path d="M30 8l5-2M30 12l6 1"/></svg>
+          <span><strong>Cleaning &amp; Janitorial</strong><span class="desc">Cleaning services and carpet cleaning for homes and businesses, with a free quote on your premises.</span></span></button></li>
+        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="2">
+          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M6 35V12l10-6 10 6v23M26 18h8v17M4 35h32M11 16h4M17 16h4M11 22h4M17 22h4M11 28h4M17 28h4"/></svg>
+          <span><strong>Property management</strong><span class="desc">Property management and maintenance to help prevent future disasters occurring.</span></span></button></li>
+        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="3">
+          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 28h18V14h-8l-4 8H8zM26 20h4l6 8H26"/><circle cx="12" cy="31" r="3"/><circle cx="23" cy="31" r="3"/></svg>
+          <span><strong>Skid steer services</strong><span class="desc">Skid steer work, debris removal and dumpster services.</span></span></button></li>
+        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="4">
+          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M20 36V18M20 18c-8 0-12-6-12-12 8 0 12 5 12 12zM20 22c6 0 10-5 10-10-6 0-10 4-10 10z"/><path d="M8 36h24"/></svg>
+          <span><strong>Landscaping services</strong><span class="desc">Landscaping in the warmer months and snow removal through Edmonton winters.</span></span></button></li>
+      </ul>
+      <div class="stage" id="stage" role="tabpanel" aria-live="polite">
+        <img class="on" src="images/restoration.jpg" alt="Restoration projects">
+        <img src="images/cleaning-janitorial.jpg" alt="Cleaning and janitorial">
+        <img src="images/property-management.jpg" alt="Property management">
+        <img src="images/skid-steer.jpg" alt="Skid steer services">
+        <img src="images/landscaping.jpg" alt="Landscaping services">
+        <a class="tag" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <div class="side rv">
+      <h2 class="display">Why choose us</h2>
+      <p>Not all contractors are fully qualified for restoration work. Here is what you get with Rush Management.</p>
+    </div>
+    <div class="points">
+      <div class="point rv">
+        <svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><path d="M27 4 7 22h5v26h30V22h5z"/><path d="M19 34l6 6 11-13"/></svg>
+        <div><h3>Experts second to none</h3><p>We are one of the most experienced and multi-service companies in Edmonton.</p></div>
+      </div>
+      <div class="point rv">
+        <svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><circle cx="27" cy="22" r="14"/><path d="M19 33l-4 17 12-6 12 6-4-17M21 22l4 4 8-8"/></svg>
+        <div><h3>Certified and licensed</h3><p>All of our technicians are fully certified and licensed to carry out work.</p></div>
+      </div>
+      <div class="point rv">
+        <svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><circle cx="27" cy="29" r="19"/><path d="M27 18v11l8 6M21 4h12M27 4v6"/></svg>
+        <div><h3>Quality service, quick response</h3><p>At our company, we pride ourselves on our quality of service and quick response.</p></div>
+      </div>
+      <div class="point rv">
+        <svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><path d="M27 4 8 11v14c0 12 8 21 19 25 11-4 19-13 19-25V11z"/><path d="M18 27l7 7 12-14"/></svg>
+        <div><h3>Insurance claims, handled</h3><p>We have a great deal of experience working with insurance claims, and we work with all major insurance companies so that you can have peace of mind.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spec">
+  <div class="wrap">
+    <div class="side rv">
+      <h2 class="display">Specialties</h2>
+      <p>Residential and commercial work across Edmonton and surrounding areas.</p>
+    </div>
+    <ul class="rv">
+      <li>Water damage services</li>
+      <li>Mould remediation by third party referral company</li>
+      <li>Restoration projects</li>
+      <li>Renovation</li>
+      <li>Debris removal</li>
+      <li>Dumpster services</li>
+      <li>Skid steer services</li>
+      <li>Cleaning services</li>
+      <li>Property management</li>
+      <li>Landscaping</li>
+      <li>Snow removal</li>
+      <li>Demolition projects</li>
+    </ul>
+  </div>
+</section>
+
+<section class="area">
+  <div class="wrap">
+    <div class="radar rv" aria-hidden="true">
+      <svg viewBox="0 0 500 500">
+        <circle cx="250" cy="250" r="240" fill="none" stroke="#D9E0EC" stroke-width="1.5"/>
+        <circle cx="250" cy="250" r="170" fill="none" stroke="#D9E0EC" stroke-width="1.5"/>
+        <circle cx="250" cy="250" r="100" fill="none" stroke="#D9E0EC" stroke-width="1.5"/>
+        <circle class="pulse" cx="250" cy="250" r="240"/>
+        <circle class="pulse" cx="250" cy="250" r="240"/>
+        <circle class="pulse" cx="250" cy="250" r="240"/>
+        <path d="M250 10v480M10 250h480" stroke="#D9E0EC" stroke-width="1" stroke-dasharray="4 8"/>
+        <path d="M250 196l-34 30v30h68v-30z" fill="#204391"/>
+        <path d="M250 182l-46 40M250 182l46 40" stroke="#E51D35" stroke-width="7" stroke-linecap="round"/>
+        <rect x="243" y="236" width="14" height="20" fill="#fff"/>
+        <text x="250" y="296" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="20" font-weight="800" fill="#1F3E75">Edmonton</text>
+        <text x="250" y="320" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="14" fill="#55627D">and surrounding areas</text>
+      </svg>
+    </div>
+    <div class="rv">
+      <h2 class="display">Service area</h2>
+      <p>Rush Management provides residential and commercial services. We proudly serve Edmonton and surrounding areas.</p>
+      <p>Since we are locally owned and operated, we are ready to help 24 hours a day, 7 days a week.</p>
+      <div class="clock">
+        <div><b>24</b><span>hours a day</span></div>
+        <div><b>7</b><span>days a week</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit">
+  <img src="images/home-visit.jpg" alt="Rush Management team arriving at a client's home">
+  <div class="wrap">
+    <h2 class="display rv">We come to your home or business</h2>
+    <p class="rv">Taking the stress out of any aspect of cleaning is what we specialize in. We will come to your premises and offer a free quote, so you know exactly what you’ll be spending. Why not contact us today?</p>
+    <a class="btn btn-red rv" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
+    <div class="stats">
+      <div><b data-count="100" data-suffix="%">100%</b><span>Satisfaction guarantee</span></div>
+      <div><b data-count="15">15</b><span>Years in business</span></div>
+      <div><b data-count="3500">3500</b><span>Successful projects</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="side rv">
+      <h2 class="display">Contact</h2>
+      <p>Call, email or visit us for a free quote on restoration, cleaning, property management, skid steer or landscaping work.</p>
+      <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
+    </div>
+    <div class="cards rv">
+      <a href="tel:7804699323"><small>Phone</small><strong>780-469-9323</strong></a>
+      <a href="tel:7803407646"><small>Phone</small><strong>780-340-7646</strong></a>
+      <a href="mailto:info@rushm.ca"><small>Email</small><strong>info@rushm.ca</strong></a>
+      <a href="https://rushmanagement.ca"><small>Website</small><strong>rushmanagement.ca</strong></a>
+      <div class="wide"><small>Office</small><strong>#101, 10940 166A Street, Edmonton, AB T5P 3V5</strong></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <img src="images/logo-white.png" alt="Rush Management Ltd." width="635" height="218">
+        <p>Residential and commercial services in Edmonton and surrounding areas.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Restoration projects</a></li>
+          <li><a href="#services">Cleaning &amp; Janitorial</a></li>
+          <li><a href="#services">Property management</a></li>
+          <li><a href="#services">Skid steer services</a></li>
+          <li><a href="#services">Landscaping services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>#101, 10940 166A Street, Edmonton, AB T5P 3V5</li>
+          <li><a href="tel:7804699323">780-469-9323</a></li>
+          <li><a href="tel:7803407646">780-340-7646</a></li>
+          <li><a href="mailto:info@rushm.ca">info@rushm.ca</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>All Rights Reserved Rush Management Ltd.</span>
+      <span>Design by <a href="https://cleaningdigital.ca/" target="_blank" rel="noopener">Cleaning Digital</a>.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mob"><a href="tel:7804699323">Call</a><a href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a></div>
+
+<script>
+(function(){
+  // mobile menu
+  var mb=document.querySelector('.menu-btn'),nav=document.getElementById('nav');
+  mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
+  nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded',false)}});
+  // service switcher
+  var tabs=[].slice.call(document.querySelectorAll('.tabs button')),imgs=[].slice.call(document.querySelectorAll('.stage img'));
+  function show(i){tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i)});imgs.forEach(function(m,k){m.classList.toggle('on',k===i)})}
+  tabs.forEach(function(t,i){t.addEventListener('click',function(){show(i)});t.addEventListener('mouseenter',function(){if(matchMedia('(hover:hover)').matches)show(i)})});
+  document.querySelectorAll('.rail a').forEach(function(a){a.addEventListener('click',function(){show(+a.dataset.go)})});
+  // reveal + counters
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var co=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;co.unobserve(e.target);if(reduce)return;
+    var el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'',t0=null;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1600,1),v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v+suf;if(p<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step)})},{threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(function(el){co.observe(el)});
+})();
+</script>
+</body>
+</html>
