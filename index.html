@@ -11,346 +11,441 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#E51D35; --red-deep:#B8132A;
-  --blue:#204391; --navy:#1F3E75; --night:#0F2147;
-  --ink:#16213A; --muted:#55627D; --paper:#F3F5F9; --line:#D9E0EC; --white:#FFFFFF;
-  --f:"Archivo", "Helvetica Neue", Arial, sans-serif;
-  --wrap:1240px;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
+  --red:#E51D35;--red-deep:#BE1429;--red-glow:rgba(229,29,53,.35);
+  --blue:#204391;--navy:#1F3E75;--night:#0D1D40;--abyss:#081430;
+  --ink:#14203A;--muted:#5A6782;--paper:#F2F5FA;--line:#DCE3EE;--white:#fff;
+  --f:"Archivo","Helvetica Neue",Arial,sans-serif;--wrap:1260px;
+  --ease:cubic-bezier(.2,.7,.1,1);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{margin:0;font-family:var(--f);font-stretch:100%;color:var(--ink);background:var(--white);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;scroll-padding-top:100px;scroll-padding-top:calc(100px + env(safe-area-inset-top,0px))}
+body{margin:0;font-family:var(--f);color:var(--ink);background:var(--white);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--red);outline-offset:3px}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
-.display{font-stretch:125%;font-weight:850;letter-spacing:-.015em;line-height:1.02}
+.display{font-stretch:125%;font-weight:850;letter-spacing:-.02em;line-height:1}
+.sec-h{font-size:clamp(34px,4.4vw,60px);margin:0;color:var(--navy)}
+.lede{color:var(--muted);font-size:18px;max-width:52ch}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* top strip */
-.strip{background:var(--night);color:#C9D3E8;font-size:14px}
-.strip .wrap{display:flex;gap:28px;align-items:center;min-height:40px;flex-wrap:wrap}
-.strip a{text-decoration:none;color:#fff}
-.strip .live{margin-left:auto;display:flex;align-items:center;gap:9px}
-.strip .live i{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(229,29,53,.7);animation:ping 2s infinite}
-@keyframes ping{70%{box-shadow:0 0 0 9px rgba(229,29,53,0)}100%{box-shadow:0 0 0 0 rgba(229,29,53,0)}}
+/* buttons */
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;font-size:16px;padding:17px 26px;border-radius:4px;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s,background .3s,color .3s;isolation:isolate}
+.btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 12px 30px -10px var(--red-glow)}
+.btn-red::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--red-deep);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.btn-red:hover::before{transform:scaleX(1)}
+.btn-red:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--red-glow)}
+.btn-glass{color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px)}
+.btn-glass:hover{background:#fff;color:var(--night)}
+.btn-navy{background:var(--night);color:#fff}
+.btn-navy:hover{background:var(--blue)}
 
 /* header */
-header.bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-header.bar .wrap{display:flex;align-items:center;gap:36px;min-height:86px}
-.logo img{height:58px;width:auto}
-nav.main{display:flex;gap:30px;margin-left:auto}
-nav.main a{text-decoration:none;font-weight:600;font-size:15.5px;position:relative;padding:6px 0}
-nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--red);transition:right .25s}
-nav.main a:hover::after,nav.main a[aria-current]::after{right:0}
-.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:15.5px;padding:15px 24px;border-radius:3px;transition:background .2s,transform .2s,color .2s}
-.btn-red{background:var(--red);color:#fff}
-.btn-red:hover{background:var(--red-deep)}
-.btn-ghost{color:#fff;border:1.5px solid rgba(255,255,255,.55)}
-.btn-ghost:hover{background:#fff;color:var(--navy)}
-.menu-btn{display:none;margin-left:auto;background:none;border:1.5px solid var(--line);border-radius:3px;padding:10px 14px;font:600 15px var(--f);color:var(--ink)}
+.top{position:absolute;top:0;left:0;right:0;z-index:40;padding-top:18px}
+.strip{display:flex;gap:26px;align-items:center;color:#C3CEE6;font-size:14px;padding:0 6px 14px}
+.strip a{text-decoration:none;color:#fff}
+.strip .live{margin-left:auto;display:flex;align-items:center;gap:9px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:ping 2s infinite;flex:none}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(229,29,53,.7)}70%{box-shadow:0 0 0 10px rgba(229,29,53,0)}100%{box-shadow:0 0 0 0 rgba(229,29,53,0)}}
+.bar{background:#fff;border-radius:6px;box-shadow:0 20px 50px -20px rgba(4,12,35,.55);display:flex;align-items:center;gap:34px;padding:12px 14px 12px 22px;transition:border-radius .3s,box-shadow .3s}
+.bar.fixed{position:fixed;top:0;left:0;right:0;border-radius:0;padding-left:max(28px,calc((100vw - var(--wrap))/2 + 28px));padding-right:max(28px,calc((100vw - var(--wrap))/2 + 28px));padding-top:calc(10px + env(safe-area-inset-top,0px));animation:drop .45s var(--ease);box-shadow:0 10px 30px -12px rgba(4,12,35,.3)}
+@keyframes drop{from{transform:translateY(-100%)}}
+.logo img{height:56px;width:auto}
+nav.main{display:flex;gap:6px;margin-left:auto}
+nav.main a{text-decoration:none;font-weight:600;font-size:15.5px;padding:10px 16px;border-radius:4px;transition:background .2s,color .2s}
+nav.main a:hover{background:var(--paper);color:var(--blue)}
+nav.main a[aria-current]{color:var(--red)}
+.bar .call{display:flex;align-items:center;gap:12px;text-decoration:none;padding-left:22px;border-left:1px solid var(--line)}
+.bar .call i{width:42px;height:42px;border-radius:50%;background:var(--paper);display:grid;place-items:center;color:var(--red)}
+.bar .call small{display:block;font-size:12.5px;color:var(--muted);line-height:1.2}
+.bar .call b{font-size:16px;color:var(--navy);line-height:1.3}
+.bar .btn{padding:14px 20px}
+.menu-btn{display:none;margin-left:auto;background:var(--paper);border:0;border-radius:4px;padding:12px 16px;font:700 15px var(--f);color:var(--navy)}
 
 /* hero */
-.hero{position:relative;color:#fff;background:var(--night);overflow:hidden;isolation:isolate}
-.hero-bg{position:absolute;inset:0;z-index:-2;background:url(images/hero-canada.jpg) 70% 40%/cover no-repeat;transform:scale(1.06);animation:drift 18s ease-out forwards}
-@keyframes drift{to{transform:scale(1)}}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(15,33,71,.96) 0%,rgba(15,33,71,.88) 38%,rgba(15,33,71,.35) 70%,rgba(15,33,71,.15) 100%)}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:center;min-height:min(78vh,720px);padding-top:70px;padding-bottom:150px}
-.hero-copy{position:relative}
-.hero .kicker{font-size:16px;color:#C9D3E8;margin:0 0 22px;display:flex;align-items:center;gap:12px}
-.hero .kicker svg{flex:none}
-.hero h1{font-size:clamp(42px,6vw,82px);margin:0 0 26px;max-width:12ch}
-.hero p.lead{font-size:19px;line-height:1.6;max-width:50ch;color:#DCE3F1;margin:0 0 36px}
-.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
-/* signature: the logo's red orbit drawing around the roof */
-.orbit{justify-self:center;width:min(100%,430px);aspect-ratio:1}
-.orbit svg{width:100%;height:100%;overflow:visible}
-.orbit .ring{fill:none;stroke:var(--red);stroke-width:7;stroke-linecap:round;stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 1.8s .35s cubic-bezier(.6,.1,.2,1) forwards}
-.orbit .house{fill:none;stroke:#fff;stroke-width:4;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s 1.2s ease-out forwards}
-.orbit .win{fill:#fff;opacity:0;animation:fade .6s 2.4s forwards}
-.orbit .badge text{font-family:var(--f)}
+.hero{position:relative;color:#fff;background:var(--abyss);overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-3;background:url(images/hero-canada.jpg) 30% 50%/cover no-repeat;opacity:.55;transform:scale(1.12);animation:drift 22s var(--ease) forwards}
+@keyframes drift{to{transform:scale(1.02)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:
+ radial-gradient(60% 70% at 78% 45%,rgba(32,67,145,.55),transparent 70%),
+ linear-gradient(95deg,rgba(8,20,48,.97) 0%,rgba(8,20,48,.9) 42%,rgba(8,20,48,.55) 100%)}
+.hero .beam{position:absolute;z-index:-1;width:900px;height:900px;right:-260px;top:-200px;border-radius:50%;background:conic-gradient(from 200deg,transparent 0 70%,rgba(229,29,53,.18) 80%,transparent 90%);animation:spin 26s linear infinite;filter:blur(30px)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-in{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:60px;align-items:center;padding-top:200px;padding-bottom:70px;min-height:min(100vh,960px)}
+.kicker{display:inline-flex;align-items:center;gap:12px;font-size:15px;color:#DCE4F4;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);padding:8px 16px 8px 10px;border-radius:40px;margin:0 0 28px;backdrop-filter:blur(6px)}
+.kicker b{background:var(--red);color:#fff;font-size:12.5px;padding:4px 10px;border-radius:30px;font-weight:700}
+.hero h1{font-size:clamp(42px,5.3vw,78px);margin:0 0 26px}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .ln>span{display:block;transform:translateY(105%);animation:rise 1s var(--ease) forwards}
+.hero h1 .ln:nth-child(2)>span{animation-delay:.12s}.hero h1 .ln:nth-child(3)>span{animation-delay:.24s}
+.hero h1 .stroke{color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.85)}
+@keyframes rise{to{transform:none}}
+.hero .lead{font-size:19.5px;line-height:1.6;max-width:48ch;color:#D4DCEC;margin:0 0 38px;opacity:0;animation:fadeup .9s .5s var(--ease) forwards}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeup .9s .65s var(--ease) forwards}
+@keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.proof{display:flex;gap:0;margin-top:54px;opacity:0;animation:fadeup .9s .8s var(--ease) forwards;border-top:1px solid rgba(255,255,255,.16);padding-top:26px;max-width:560px}
+.proof div{flex:1;padding-right:22px}
+.proof div+div{padding-left:22px;border-left:1px solid rgba(255,255,255,.16)}
+.proof b{display:block;font-stretch:125%;font-weight:850;font-size:34px;line-height:1}
+.proof span{font-size:14px;color:#AFBCD8}
+/* hero visual: photo inside the logo's house, circled by the logo's red orbit */
+.visual{position:relative;justify-self:center;width:min(100%,520px);aspect-ratio:1/1.08;opacity:0;animation:fadeup 1.1s .25s var(--ease) forwards}
+.housepic{position:absolute;inset:9% 10% 4%;clip-path:polygon(50% 0,100% 36%,100% 100%,0 100%,0 36%);overflow:hidden;background:var(--navy)}
+.housepic img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);animation:kb 16s var(--ease) forwards}
+@keyframes kb{to{transform:scale(1)}}
+.housepic::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,20,48,0) 50%,rgba(8,20,48,.55))}
+.roofline{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.roofline .r{fill:none;stroke:#fff;stroke-width:5;stroke-linejoin:round;stroke-dasharray:700;stroke-dashoffset:700;animation:draw 1.6s .9s var(--ease) forwards}
+.roofline .ring{fill:none;stroke:var(--red);stroke-width:9;stroke-linecap:round;stroke-dasharray:1700;stroke-dashoffset:1700;animation:draw 2.2s .4s cubic-bezier(.6,.1,.2,1) forwards;filter:drop-shadow(0 8px 18px rgba(229,29,53,.45))}
+.roofline .ring.back{stroke-width:3;opacity:.35;stroke-dasharray:none;stroke-dashoffset:0;animation:none;filter:none}
 @keyframes draw{to{stroke-dashoffset:0}}
-@keyframes fade{to{opacity:1}}
-/* service rail (the original slider's five captions) */
-.rail{position:absolute;left:0;right:0;bottom:0;background:rgba(15,33,71,.78);border-top:1px solid rgba(255,255,255,.16);backdrop-filter:blur(6px)}
+.float{position:absolute;background:rgba(255,255,255,.97);color:var(--ink);border-radius:8px;padding:14px 18px;box-shadow:0 24px 50px -18px rgba(0,0,0,.6);display:flex;gap:12px;align-items:center;font-size:14.5px;line-height:1.3;max-width:250px;animation:bob 6s ease-in-out infinite}
+.float i{flex:none;width:42px;height:42px;border-radius:8px;display:grid;place-items:center;background:var(--paper);color:var(--red)}
+.float b{display:block;font-size:15.5px;color:var(--navy)}
+.f1{left:-6%;bottom:16%}
+.f2{right:-8%;top:30%;animation-delay:-3s}
+@keyframes bob{50%{transform:translateY(-10px)}}
+/* service rail with thumbs */
+.rail{position:relative;background:rgba(8,20,48,.7);border-top:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px)}
 .rail ul{list-style:none;margin:0 auto;padding:0 28px;max-width:var(--wrap);display:grid;grid-template-columns:repeat(5,1fr)}
-.rail li+li{border-left:1px solid rgba(255,255,255,.16)}
-.rail a{display:block;text-decoration:none;padding:24px 20px;font-weight:600;font-size:15.5px;color:#fff;transition:background .2s}
-.rail a small{display:block;color:#9FB0D2;font-weight:500;font-size:13px;margin-bottom:4px}
-.rail a:hover{background:var(--red)}
-.rail a:hover small{color:#fff}
+.rail li+li{border-left:1px solid rgba(255,255,255,.12)}
+.rail a{display:flex;align-items:center;gap:14px;text-decoration:none;padding:20px 18px;color:#fff;font-weight:650;font-size:15px;line-height:1.25;position:relative;transition:background .3s}
+.rail a::after{content:"";position:absolute;left:0;right:0;top:-1px;height:3px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.rail a:hover{background:rgba(255,255,255,.06)}
+.rail a:hover::after{transform:scaleX(1)}
+.rail img{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.25)}
 
 /* about */
-.about{padding:120px 0 110px}
-.about .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:70px;align-items:start}
-.about h2{font-size:clamp(32px,3.8vw,50px);margin:0 0 28px;color:var(--navy)}
+.about{padding:140px 0 130px;position:relative}
+.about .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:90px;align-items:center}
+.collage{position:relative;padding:0 50px 80px 0}
+.collage .big{border-radius:8px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(13,29,64,.55)}
+.collage .big img{width:100%;aspect-ratio:4/4.3;object-fit:cover}
+.collage .small{position:absolute;right:0;bottom:0;width:52%;border-radius:8px;overflow:hidden;border:8px solid #fff;box-shadow:0 30px 60px -30px rgba(13,29,64,.6)}
+.collage .small img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.collage .seal{position:absolute;left:-34px;top:40px;width:150px;height:150px;border-radius:50%;color:#fff;display:grid;place-items:center;text-align:center;filter:drop-shadow(0 20px 30px rgba(13,29,64,.35))}
+.collage .seal>div{position:relative}
+.collage .seal b{display:block;font-stretch:125%;font-weight:900;font-size:46px;line-height:.9}
+.collage .seal span{font-size:13px;font-weight:600;line-height:1.2;display:block;margin-top:6px}
+.collage .seal svg{position:absolute;inset:-12px;width:calc(100% + 24px);height:calc(100% + 24px);animation:spin 30s linear infinite}
+.about h2{margin-bottom:28px}
 .about p{color:var(--muted);margin:0 0 18px;max-width:58ch}
-.about p.first{font-size:21px;color:var(--ink);line-height:1.5}
-.about figure{margin:0;position:relative}
-.about figure img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:4px}
-.about figcaption{position:absolute;left:-28px;bottom:-34px;background:var(--red);color:#fff;padding:22px 26px;max-width:290px;font-weight:600;font-size:16px;line-height:1.35;border-radius:3px}
-.about figcaption b{display:block;font-stretch:125%;font-size:22px;font-weight:850;margin-bottom:4px}
-.about .scope{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;padding:0;list-style:none}
-.about .scope li{border:1.5px solid var(--line);padding:8px 14px;border-radius:40px;font-size:14.5px;font-weight:600;color:var(--navy)}
+.about p.first{font-size:23px;color:var(--ink);line-height:1.45;font-weight:500}
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:12px 26px;margin:32px 0 38px;padding:0;list-style:none}
+.scope li{display:flex;gap:12px;align-items:center;font-weight:650;color:var(--navy)}
+.scope li::before{content:"";width:22px;height:22px;flex:none;border-radius:50%;background:var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l4 4 8-9'/%3E%3C/svg%3E") center/14px no-repeat}
+.signoff{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.signoff .ph{display:flex;align-items:center;gap:14px;text-decoration:none}
+.signoff .ph i{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--red)}
+.signoff .ph small{display:block;color:var(--muted);font-size:13px}
+.signoff .ph b{font-size:19px;color:var(--navy)}
 
-/* services switcher */
-.services{background:var(--paper);padding:110px 0}
-.services .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:50px;flex-wrap:wrap}
-.services h2{font-size:clamp(32px,3.8vw,50px);margin:0;color:var(--navy);max-width:14ch}
-.services .head p{max-width:44ch;color:var(--muted);margin:0}
-.switch{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:0;background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden}
-.tabs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-.tabs li{border-bottom:1px solid var(--line)}
-.tabs li:last-child{border-bottom:0}
-.tabs button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:40px 1fr;gap:16px;padding:26px 32px;align-items:start;transition:background .2s}
-.tabs button:focus-visible{outline:3px solid var(--red);outline-offset:-3px}
-.tabs .ico{width:40px;height:40px;color:var(--blue)}
-.tabs strong{display:block;font-stretch:118%;font-weight:800;font-size:22px;color:var(--ink);line-height:1.2}
-.tabs span.desc{display:block;color:var(--muted);font-size:15.5px;max-height:0;overflow:hidden;opacity:0;transition:max-height .35s,opacity .3s,margin .3s}
-.tabs button[aria-selected="true"]{background:var(--night)}
-.tabs button[aria-selected="true"] strong{color:#fff}
-.tabs button[aria-selected="true"] .ico{color:var(--red)}
-.tabs button[aria-selected="true"] span.desc{max-height:120px;opacity:1;margin-top:8px;color:#C9D3E8}
-.tabs button:not([aria-selected="true"]):hover{background:var(--paper)}
-.stage{position:relative;min-height:460px;background:var(--night)}
-.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .5s,transform .8s}
-.stage img.on{opacity:1;transform:none}
-.stage .tag{position:absolute;right:20px;bottom:20px;background:#fff;color:var(--navy);padding:12px 18px;border-radius:3px;font-weight:700;font-size:15px;text-decoration:none;display:flex;gap:10px;align-items:center}
-.stage .tag:hover{background:var(--red);color:#fff}
+/* services */
+.services{background:var(--night);color:#fff;padding:130px 0;position:relative;overflow:hidden}
+.services::before{content:"";position:absolute;left:-200px;bottom:-260px;width:760px;height:520px;border:3px solid rgba(229,29,53,.4);border-radius:50%;transform:rotate(-14deg)}
+.services .head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:56px;flex-wrap:wrap;position:relative}
+.services .sec-h{color:#fff;max-width:13ch}
+.services .head p{max-width:42ch;color:#B9C5DF;margin:0}
+.switch{position:relative;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:28px;align-items:stretch}
+.tabs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.tabs button{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:52px 1fr;gap:18px;padding:22px 24px;align-items:center;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);position:relative;overflow:hidden;transition:background .3s,border-color .3s}
+.tabs button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.tabs .ico{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.07);color:#9FB2DA;transition:background .3s,color .3s}
+.tabs .ico svg{width:28px;height:28px}
+.tabs strong{display:block;font-stretch:115%;font-weight:750;font-size:21px;line-height:1.2}
+.tabs .bar-p{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--red)}
+.tabs button[aria-selected="true"]{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22)}
+.tabs button[aria-selected="true"] .ico{background:var(--red);color:#fff}
+.tabs button[aria-selected="true"] .bar-p{animation:prog 6s linear forwards}
+.switch.paused .tabs button[aria-selected="true"] .bar-p{animation-play-state:paused}
+@keyframes prog{to{width:100%}}
+.tabs button:not([aria-selected="true"]):hover{background:rgba(255,255,255,.06)}
+.stage{position:relative;min-height:560px;border-radius:10px;overflow:hidden;background:var(--navy)}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .7s var(--ease);pointer-events:none}
+.slide.on{opacity:1;pointer-events:auto}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 6s linear}
+.slide.on img{transform:scale(1)}
+.slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,20,48,0) 35%,rgba(8,20,48,.92))}
+.slide .cap{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:36px 38px;display:flex;justify-content:space-between;align-items:end;gap:24px}
+.slide h3{font-stretch:125%;font-weight:850;font-size:clamp(26px,2.8vw,38px);margin:0 0 10px;line-height:1.05;transform:translateY(20px);opacity:0;transition:all .7s .15s var(--ease)}
+.slide p{margin:0;color:#D4DCEC;max-width:44ch;transform:translateY(20px);opacity:0;transition:all .7s .25s var(--ease)}
+.slide.on h3,.slide.on p{transform:none;opacity:1}
+.slide .btn{flex:none}
 
 /* why */
-.why{background:var(--navy);color:#fff;padding:120px 0;position:relative;overflow:hidden}
-.why::after{content:"";position:absolute;right:-180px;top:-120px;width:620px;height:420px;border:3px solid rgba(229,29,53,.55);border-radius:50%;transform:rotate(-14deg);pointer-events:none}
-.why .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:80px;position:relative;z-index:1}
-.why h2{font-size:clamp(34px,4.2vw,58px);margin:0 0 22px}
-.why .side{align-self:start;position:sticky;top:130px}
-.why .side p{color:#C9D3E8;max-width:36ch}
-.points{display:grid;gap:0}
-.point{display:grid;grid-template-columns:70px 1fr;gap:24px;padding:34px 0;border-top:1px solid rgba(255,255,255,.18)}
-.point:last-child{border-bottom:1px solid rgba(255,255,255,.18)}
-.point svg{width:54px;height:54px;color:var(--red)}
-.point h3{font-stretch:115%;font-weight:800;font-size:24px;margin:0 0 8px;line-height:1.2}
-.point p{margin:0;color:#C9D3E8;max-width:56ch}
+.why{padding:140px 0;position:relative;background:var(--paper);overflow:hidden}
+.why .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:80px;align-items:start}
+.why .side{position:sticky;top:130px}
+.why .side .sec-h{margin-bottom:24px}
+.why .side figure{margin:36px 0 0;border-radius:8px;overflow:hidden;position:relative}
+.why .side figure img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.why .side figure figcaption{position:absolute;left:16px;bottom:16px;right:16px;background:rgba(255,255,255,.95);border-radius:6px;padding:14px 16px;font-size:14.5px;font-weight:600;color:var(--navy);display:flex;gap:10px;align-items:center}
+.points{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.point{background:#fff;border-radius:10px;padding:34px 30px 32px;border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.point:nth-child(even){transform:translateY(46px)}
+.point:hover{box-shadow:0 30px 60px -30px rgba(13,29,64,.35);border-color:transparent}
+.point::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:linear-gradient(90deg,var(--red),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.point:hover::before{transform:scaleX(1)}
+.point .ic{width:64px;height:64px;border-radius:14px;background:var(--paper);display:grid;place-items:center;color:var(--red);margin-bottom:26px}
+.point .ic svg{width:34px;height:34px}
+.point h3{font-stretch:112%;font-weight:800;font-size:22px;margin:0 0 10px;line-height:1.2;color:var(--navy)}
+.point p{margin:0;color:var(--muted);font-size:16px}
 
-/* specialties */
-.spec{padding:110px 0}
-.spec .wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:60px}
-.spec h2{font-size:30px;margin:6px 0 0;color:var(--navy)}
-.spec .side p{color:var(--muted);font-size:15.5px}
-.spec ul{list-style:none;margin:0;padding:0;text-wrap:pretty}
-.spec li{font-stretch:112%;font-weight:750;font-size:clamp(22px,2.6vw,36px);line-height:1.35;color:var(--ink);display:inline}
-.spec li:not(:last-child)::after{content:"";display:inline-block;vertical-align:.12em;width:20px;height:17px;margin:0 16px;background:var(--red);clip-path:polygon(50% 0,100% 55%,82% 55%,82% 100%,18% 100%,18% 55%,0 55%)}
-.spec li:nth-child(even){color:var(--blue)}
+/* specialties marquee */
+.spec{padding:110px 0 100px;overflow:hidden;background:#fff}
+.spec .wrap{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:48px;flex-wrap:wrap}
+.mq{display:flex;overflow:hidden;user-select:none;-webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.mq+.mq{margin-top:14px}
+.mq ul{display:flex;flex:none;align-items:center;list-style:none;margin:0;padding:0;animation:mq 46s linear infinite}
+.mq.rev ul{animation-direction:reverse;animation-duration:52s}
+.mq:hover ul{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-100%)}}
+.mq li{font-stretch:125%;font-weight:850;font-size:clamp(34px,5vw,72px);line-height:1.15;white-space:nowrap;display:flex;align-items:center;color:var(--navy)}
+.mq li.o{color:transparent;-webkit-text-stroke:1.6px var(--blue)}
+.mq li::after{content:"";width:.55em;height:.48em;margin:0 .5em;background:var(--red);clip-path:polygon(50% 0,100% 55%,82% 55%,82% 100%,18% 100%,18% 55%,0 55%)}
+.spec .list{margin-top:56px}
+.spec .list ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--line)}
+.spec .list li{padding:18px 18px 18px 0;border-bottom:1px solid var(--line);font-weight:600;color:var(--ink);font-size:15.5px;display:flex;gap:10px;align-items:flex-start}
+.spec .list li svg{flex:none;margin-top:4px;color:var(--red)}
 
 /* service area */
-.area{background:var(--paper);padding:110px 0}
-.area .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:70px;align-items:center}
-.radar{position:relative;aspect-ratio:1;max-width:500px;width:100%;justify-self:center}
-.radar svg{width:100%;height:100%}
-.radar .pulse{fill:none;stroke:var(--blue);stroke-width:1.5;opacity:0;transform-origin:250px 250px;animation:radar 4.5s infinite}
-.radar .pulse:nth-of-type(2){animation-delay:1.5s}.radar .pulse:nth-of-type(3){animation-delay:3s}
-@keyframes radar{0%{transform:scale(.15);opacity:.9}100%{transform:scale(1);opacity:0}}
-.area h2{font-size:clamp(32px,3.8vw,50px);margin:0 0 22px;color:var(--navy)}
-.area p{color:var(--muted);max-width:52ch}
-.clock{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
-.clock div{border-left:4px solid var(--red);padding:4px 0 4px 18px}
-.clock b{display:block;font-stretch:125%;font-weight:850;font-size:44px;line-height:1;color:var(--navy)}
-.clock span{font-size:15px;color:var(--muted)}
+.area{padding:0 0 130px;background:#fff}
+.area-card{position:relative;overflow:hidden;border-radius:14px;background:linear-gradient(120deg,var(--night),var(--blue));color:#fff;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;padding:80px 70px}
+.area-card::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:44px 44px;-webkit-mask:radial-gradient(70% 90% at 75% 50%,#000,transparent);mask:radial-gradient(70% 90% at 75% 50%,#000,transparent)}
+.area-card>*{position:relative}
+.area-card .sec-h{color:#fff;margin-bottom:22px}
+.area-card p{color:#C9D3E8;max-width:50ch}
+.clock{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap}
+.clock div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:20px 26px;min-width:150px}
+.clock b{display:block;font-stretch:125%;font-weight:900;font-size:50px;line-height:1}
+.clock span{font-size:14.5px;color:#C9D3E8}
+.radar{width:100%;max-width:440px;aspect-ratio:1;justify-self:center}
+.radar svg{width:100%;height:100%;overflow:visible}
+.radar .pulse{fill:none;stroke:#fff;stroke-width:1.5;opacity:0;transform-origin:250px 250px;animation:radar 4.5s infinite}
+.radar .pulse.p2{animation-delay:1.5s}.radar .pulse.p3{animation-delay:3s}
+@keyframes radar{0%{transform:scale(.12);opacity:.8}100%{transform:scale(1);opacity:0}}
+.radar .sweep{transform-origin:250px 250px;animation:spin 6s linear infinite}
 
 /* visit + stats */
 .visit{position:relative;color:#fff;isolation:isolate;overflow:hidden}
 .visit>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.visit::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(15,33,71,.95),rgba(15,33,71,.75) 55%,rgba(15,33,71,.45))}
-.visit .wrap{padding-top:120px;padding-bottom:0}
-.visit h2{font-size:clamp(34px,4.6vw,62px);margin:0 0 22px;max-width:15ch}
-.visit p{max-width:52ch;color:#DCE3F1;font-size:18.5px;margin:0 0 34px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:90px;background:#fff;color:var(--ink);border-radius:4px 4px 0 0}
-.stats div{padding:38px 36px;border-right:1px solid var(--line)}
+.visit::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,20,48,.95),rgba(8,20,48,.78) 50%,rgba(8,20,48,.25))}
+.visit .wrap{padding-top:140px}
+.visit h2{font-size:clamp(38px,5vw,70px);margin:0 0 24px;max-width:14ch}
+.visit p{max-width:52ch;color:#DCE3F1;font-size:19px;margin:0 0 36px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:110px;background:#fff;color:var(--ink);border-radius:12px 12px 0 0;box-shadow:0 -20px 60px -30px rgba(0,0,0,.5)}
+.stats div{padding:44px 40px;border-right:1px solid var(--line);position:relative}
 .stats div:last-child{border-right:0}
-.stats b{display:block;font-stretch:125%;font-weight:900;font-size:clamp(44px,5vw,68px);line-height:1;color:var(--red)}
-.stats div:nth-child(2) b{color:var(--blue)}
-.stats span{display:block;margin-top:10px;font-weight:600;color:var(--navy)}
+.stats b{display:block;font-stretch:125%;font-weight:900;font-size:clamp(50px,5.6vw,80px);line-height:1;color:var(--navy)}
+.stats b em{font-style:normal;color:var(--red)}
+.stats div>span{display:block;margin-top:12px;font-weight:650;color:var(--muted)}
 
 /* contact */
-.contact{background:var(--paper);padding:100px 0}
-.contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:60px;align-items:start}
-.contact h2{font-size:clamp(32px,3.8vw,50px);margin:0 0 18px;color:var(--navy)}
-.contact .side p{color:var(--muted);max-width:40ch}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
-.cards a,.cards div{background:#fff;padding:30px;text-decoration:none;display:block;transition:background .2s}
-.cards a:hover{background:var(--night);color:#fff}
-.cards a:hover small{color:#9FB0D2}
-.cards small{display:block;color:var(--muted);font-size:14px;margin-bottom:6px}
-.cards strong{font-stretch:112%;font-size:21px;font-weight:750;line-height:1.3}
-.cards .wide{grid-column:1/-1}
+.contact{background:#fff;padding:120px 0}
+.contact .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-radius:14px;overflow:hidden;box-shadow:0 50px 100px -50px rgba(13,29,64,.45);padding:0;max-width:calc(var(--wrap) - 56px)}
+.contact .pic{position:relative;min-height:520px}
+.contact .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.contact .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,20,48,.6),transparent 50%)}
+.contact .pic .tag{position:absolute;left:28px;bottom:28px;z-index:1;color:#fff;font-stretch:120%;font-weight:800;font-size:26px;line-height:1.15;max-width:16ch}
+.contact .info{background:var(--night);color:#fff;padding:64px 60px}
+.contact .info .sec-h{color:#fff;margin-bottom:12px}
+.contact .info>p{color:#B9C5DF;margin:0 0 34px}
+.clist{list-style:none;margin:0 0 38px;padding:0;display:grid;gap:4px}
+.clist a,.clist div{display:flex;gap:18px;align-items:center;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.clist i{width:46px;height:46px;border-radius:10px;flex:none;display:grid;place-items:center;background:rgba(255,255,255,.08);color:var(--red);transition:background .3s,color .3s}
+.clist a:hover i{background:var(--red);color:#fff}
+.clist small{display:block;color:#9FB0D2;font-size:13px}
+.clist b{font-weight:650;font-size:17px}
 
 /* footer */
-footer{background:var(--night);color:#C9D3E8;padding:70px 0 30px;font-size:15px}
-footer .top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:50px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.14)}
-footer img{height:64px;width:auto;margin-bottom:20px}
-footer h4{color:#fff;font-size:16px;margin:0 0 16px;font-weight:700}
-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
-footer a{text-decoration:none;color:#C9D3E8}
+footer{background:var(--abyss);color:#B9C5DF;padding:80px 0 30px;font-size:15px;position:relative;overflow:hidden}
+footer .ft{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:60px;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,.12)}
+footer img{height:70px;width:auto;margin-bottom:22px}
+footer h4{color:#fff;font-size:17px;margin:0 0 18px;font-weight:700}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+footer a{text-decoration:none;color:#B9C5DF;transition:color .2s}
 footer a:hover{color:#fff}
 footer .bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:26px;font-size:14px}
 footer .bottom a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .mob{display:none}
 
-/* reveal on scroll (single treatment, subtle) */
-.rv{opacity:0;transform:translateY(18px);transition:opacity .7s,transform .7s}
+/* reveal */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.in{opacity:1;transform:none}
+.point.rv:nth-child(even).in{transform:translateY(46px)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
 
-@media (max-width:1040px){
-  nav.main,header.bar .btn-red{display:none}
+@media (max-width:1100px){
+  nav.main,.bar .call,.bar>.btn{display:none}
   .menu-btn{display:block}
-  nav.main.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#fff;padding:18px 28px;border-bottom:1px solid var(--line);gap:10px}
-  .hero .wrap{grid-template-columns:1fr;padding-bottom:40px}
-  .orbit{display:none}
-  .rail{position:static}
+  nav.main.open{display:flex;flex-direction:column;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;padding:12px;border-radius:6px;box-shadow:0 20px 40px -20px rgba(4,12,35,.4)}
+  .bar{position:relative}
+  .hero-in{grid-template-columns:1fr;padding-top:170px;min-height:0}
+  .visual{width:min(100%,460px);margin-top:10px}
   .rail ul{grid-template-columns:1fr 1fr;padding:0}
-  .rail li{border-top:1px solid rgba(255,255,255,.16)}
-  .about .wrap,.why .wrap,.area .wrap,.contact .wrap,.switch{grid-template-columns:1fr}
+  .rail li{border-top:1px solid rgba(255,255,255,.12)}
+  .about .wrap,.why .wrap,.switch,.area-card,.contact .wrap{grid-template-columns:1fr}
   .why .side{position:static}
-  .stage{min-height:320px;order:-1}
-  .spec .wrap{grid-template-columns:1fr;gap:20px}
-  footer .top{grid-template-columns:1fr}
-  .about figcaption{left:16px}
+  .points{grid-template-columns:1fr 1fr}
+  .stage{min-height:440px;order:-1}
+  .spec .list ul{grid-template-columns:repeat(2,1fr)}
+  footer .ft{grid-template-columns:1fr}
+  .area-card{padding:60px 36px}
+  .collage .seal{left:10px}
 }
-@media (max-width:640px){
+@media (max-width:680px){
   body{font-size:16px;padding-bottom:64px}
   .wrap{padding:0 20px}
-  .strip .wrap span.hide-s{display:none}
-  .logo img{height:46px}
+  .strip .hide-s{display:none}
+  .strip{font-size:13px;gap:16px}
+  .logo img{height:44px}
+  .hero-in{padding-top:150px}
+  .proof b{font-size:26px}
+  .f2{display:none}.f1{left:0;bottom:2%;padding:10px 14px;font-size:13px}.f1 i{width:34px;height:34px}
+  .rail ul{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .rail li{flex:0 0 70%;scroll-snap-align:start;border-top:0}
+  .rail li+li{border-left:1px solid rgba(255,255,255,.12)}
+  .points{grid-template-columns:1fr}
+  .point:nth-child(even),.point.rv:nth-child(even).in{transform:none}
+  .scope{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr}
   .stats div{border-right:0;border-bottom:1px solid var(--line)}
-  .cards{grid-template-columns:1fr}
-  .rail ul{grid-template-columns:1fr}
-  .rail li+li{border-left:0}
+  .contact .info{padding:44px 26px}
+  .contact .pic{min-height:300px}
+  .slide .cap{flex-direction:column;align-items:flex-start;padding:26px}
+  .collage{padding:0 20px 60px 0}
+  .collage .seal{width:116px;height:116px}.collage .seal b{font-size:36px}
   .mob{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;padding-bottom:env(safe-area-inset-bottom,0px);background:var(--night)}
   .mob a{text-align:center;padding:18px;color:#fff;text-decoration:none;font-weight:700}
   .mob a+a{background:var(--red)}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .orbit .ring,.orbit .house{stroke-dashoffset:0}.orbit .win{opacity:1}
+  .hero h1 .ln>span{transform:none}.hero .lead,.hero .ctas,.proof,.visual{opacity:1}
+  .roofline .r,.roofline .ring{stroke-dashoffset:0}
   .rv{opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
 
-<div class="strip">
+<header class="top">
   <div class="wrap">
-    <span class="hide-s">Contact us</span>
-    <a href="tel:7804699323">780-469-9323</a>
-    <a href="mailto:info@rushm.ca">info@rushm.ca</a>
-    <span class="live"><i></i>Ready to help 24 hours a day, 7 days a week</span>
-  </div>
-</div>
-
-<header class="bar">
-  <div class="wrap">
-    <a class="logo" href="#top" aria-label="Rush Management home"><img src="images/logo.png" alt="Rush Management Ltd. Property Management and Maintenance" width="635" height="218"></a>
-    <nav class="main" id="nav" aria-label="Main">
-      <a href="https://rushmanagement.ca/" aria-current="page">Home</a>
-      <a href="https://rushmanagement.ca/services/">Services</a>
-      <a href="https://rushmanagement.ca/why-to-choose-us/">About</a>
-      <a href="https://rushmanagement.ca/contact-us-2/">Contact us</a>
-    </nav>
-    <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
-    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <div class="strip">
+      <span class="hide-s">Contact us</span>
+      <a href="tel:7804699323">780-469-9323</a>
+      <a href="mailto:info@rushm.ca">info@rushm.ca</a>
+      <span class="live hide-s"><i class="dot"></i>Ready to help 24 hours a day, 7 days a week</span>
+    </div>
+    <div class="bar" id="bar">
+      <a class="logo" href="https://rushmanagement.ca/" aria-label="Rush Management home"><img src="images/logo.png" alt="Rush Management Ltd. Property Management and Maintenance" width="635" height="218"></a>
+      <nav class="main" id="nav" aria-label="Main">
+        <a href="https://rushmanagement.ca/" aria-current="page">Home</a>
+        <a href="https://rushmanagement.ca/services/">Services</a>
+        <a href="https://rushmanagement.ca/why-to-choose-us/">About</a>
+        <a href="https://rushmanagement.ca/contact-us-2/">Contact us</a>
+      </nav>
+      <a class="call" href="tel:7804699323"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></i><span><small>Call us</small><b>780-469-9323</b></span></a>
+      <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
   </div>
 </header>
 
-<main id="top">
+<main>
 
-<section class="hero">
+<section class="hero grain">
   <div class="hero-bg" role="img" aria-label="Canada seen from space"></div>
-  <div class="wrap">
-    <div class="hero-copy">
-      <p class="kicker">
-        <svg width="26" height="22" viewBox="0 0 26 22" aria-hidden="true"><path d="M13 1 1 11h3v10h18V11h3z" fill="none" stroke="#E51D35" stroke-width="2.4" stroke-linejoin="round"/></svg>
-        Residential &amp; commercial services in Edmonton
-      </p>
-      <h1 class="display">Restoring property to pre&#8209;loss condition.</h1>
+  <div class="beam" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div>
+      <p class="kicker"><b>Edmonton</b>Residential &amp; commercial services</p>
+      <h1 class="display"><span class="ln"><span>Restoring</span></span><span class="ln"><span class="stroke">property to</span></span><span class="ln"><span>pre&#8209;loss condition.</span></span></h1>
       <p class="lead">Edmonton’s premier disaster restoration company, with the best restoration services for damage caused by flooding, fire and storms.</p>
       <div class="ctas">
-        <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
-        <a class="btn btn-ghost" href="tel:7804699323">Call 780-469-9323</a>
+        <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-glass" href="tel:7804699323">Call 780-469-9323</a>
+      </div>
+      <div class="proof">
+        <div><b>15</b><span>Years in business</span></div>
+        <div><b>3500</b><span>Successful projects</span></div>
+        <div><b>100%</b><span>Satisfaction guarantee</span></div>
       </div>
     </div>
-    <div class="orbit" aria-hidden="true">
-      <svg viewBox="0 0 400 400">
-        <path d="M80 210 200 95 320 210V300H80z" fill="rgba(15,33,71,.45)"/>
-        <ellipse class="ring" cx="200" cy="215" rx="185" ry="120" transform="rotate(-14 200 215)"/>
-        <path class="house" d="M80 210 200 95 320 210 M110 182V300H290V182 M248 130v-22h26v47"/>
-        <path class="house" d="M176 300v-62h48v62"/>
-        <g class="win"><rect x="182" y="150" width="15" height="15"/><rect x="203" y="150" width="15" height="15"/><rect x="182" y="171" width="15" height="15"/><rect x="203" y="171" width="15" height="15"/></g>
+    <div class="visual">
+      <div class="housepic"><img src="images/hero-crew.jpg" alt="Rush Management technicians removing water-damaged materials from a home"></div>
+      <svg class="roofline" viewBox="0 0 520 562" aria-hidden="true">
+        <ellipse class="ring back" cx="260" cy="300" rx="268" ry="168" transform="rotate(-14 260 300)"/>
+        <path class="r" d="M38 222 260 34 482 222"/>
+        <path class="r" d="M392 108V62h40v80"/>
+        <ellipse class="ring" cx="260" cy="300" rx="268" ry="168" transform="rotate(-14 260 300)" pathLength="1700" stroke-dasharray="1100 600"/>
       </svg>
+      <div class="float f1"><i><span class="dot"></span></i><span><b>Ready to help</b>24 hours a day, 7 days a week</span></div>
+      <div class="float f2"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></i><span><b>Insurance claims</b>We work with all major insurance companies</span></div>
     </div>
   </div>
   <nav class="rail" aria-label="Our services">
     <ul>
-      <li><a href="#services" data-go="0"><small>Flood, fire &amp; storm</small>Restoration projects</a></li>
-      <li><a href="#services" data-go="1"><small>Homes &amp; businesses</small>Cleaning &amp; Janitorial</a></li>
-      <li><a href="#services" data-go="2"><small>Maintenance</small>Property management</a></li>
-      <li><a href="#services" data-go="3"><small>Debris &amp; dumpsters</small>Skid steer services</a></li>
-      <li><a href="#services" data-go="4"><small>Snow removal too</small>Landscaping services</a></li>
+      <li><a href="#services" data-go="0"><img src="images/restoration.jpg" alt="">Restoration projects</a></li>
+      <li><a href="#services" data-go="1"><img src="images/cleaning-janitorial.jpg" alt="">Cleaning &amp; Janitorial</a></li>
+      <li><a href="#services" data-go="2"><img src="images/property-management.jpg" alt="">Property management</a></li>
+      <li><a href="#services" data-go="3"><img src="images/skid-steer.jpg" alt="">Skid steer services</a></li>
+      <li><a href="#services" data-go="4"><img src="images/landscaping.jpg" alt="">Landscaping services</a></li>
     </ul>
   </nav>
 </section>
 
 <section class="about" id="about">
   <div class="wrap">
-    <div class="rv">
-      <h2 class="display">Rush Management</h2>
-      <p class="first">We aim to restore property to pre-loss condition after the unfortunate event of a disaster.</p>
-      <p>We guarantee to provide the best restoration services for damage caused by flooding, fire and storms. We also offer mould remediation by third party referral company, structural drying, contents remediation, carpet cleaning and more.</p>
-      <p>As qualified builders we know the best methods of restoration and repair, and provide maintenance to prevent future disasters occurring.</p>
-      <ul class="scope" aria-label="Restoration services">
-        <li>Flooding</li><li>Fire</li><li>Storms</li><li>Structural drying</li><li>Contents remediation</li><li>Carpet cleaning</li>
-      </ul>
+    <div class="collage rv">
+      <div class="big"><img src="images/restoration.jpg" alt="Technician setting up air movers in a water-damaged Edmonton basement"></div>
+      <div class="small"><img src="images/skid-steer.jpg" alt="Skid steer loading renovation debris into a dumpster"></div>
+      <div class="seal">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="100" fill="#fff"/><circle cx="100" cy="100" r="72" fill="#E51D35"/><defs><path id="cp" d="M100 100m-86 0a86 86 0 1 1 172 0a86 86 0 1 1-172 0"/></defs><text font-family="Archivo,Arial" font-size="13" font-weight="700" fill="#1F3E75" letter-spacing="2.6"><textPath href="#cp">Locally owned and operated • Edmonton • Locally owned • Edmonton •</textPath></text></svg>
+        <div><b>15</b><span>Years in<br>business</span></div>
+      </div>
     </div>
-    <figure class="rv">
-      <img src="images/about-restoration.jpg" alt="Rush Management restoration crew at work" width="1600" height="900">
-      <figcaption><b>Qualified builders</b>We know the best methods of restoration and repair.</figcaption>
-    </figure>
+    <div>
+      <h2 class="display sec-h rv">Rush Management</h2>
+      <p class="first rv d1">We aim to restore property to pre-loss condition after the unfortunate event of a disaster.</p>
+      <p class="rv d1">We guarantee to provide the best restoration services for damage caused by flooding, fire and storms. We also offer mould remediation by third party referral company, structural drying, contents remediation, carpet cleaning and more. As qualified builders we know the best methods of restoration and repair, and provide maintenance to prevent future disasters occurring.</p>
+      <ul class="scope rv d2">
+        <li>Flooding, fire and storm damage</li>
+        <li>Structural drying</li>
+        <li>Contents remediation</li>
+        <li>Carpet cleaning</li>
+      </ul>
+      <div class="signoff rv d3">
+        <a class="btn btn-navy" href="https://rushmanagement.ca/why-to-choose-us/">More about us</a>
+        <a class="ph" href="tel:7803407646"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></i><span><small>Talk to our team</small><b>780-340-7646</b></span></a>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="services" id="services">
+<section class="services grain" id="services">
   <div class="wrap">
-    <div class="head rv">
-      <h2 class="display">Residential &amp; commercial services</h2>
-      <p>One of the most experienced multi-service companies in Edmonton. Choose a service to see what it covers.</p>
+    <div class="head">
+      <h2 class="display sec-h rv">Residential &amp; commercial services</h2>
+      <p class="rv d1">One of the most experienced multi-service companies in Edmonton, with experts second to none.</p>
     </div>
-    <div class="switch rv">
+    <div class="switch rv d1" id="switch">
       <ul class="tabs" role="tablist" aria-label="Services">
-        <li><button role="tab" aria-selected="true" aria-controls="stage" data-i="0">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 20 6l15 13M9 16v18h22V16"/><path d="M20 20c-3 4-4 6-4 8a4 4 0 0 0 8 0c0-2-1-4-4-8z"/></svg>
-          <span><strong>Restoration projects</strong><span class="desc">Water damage, structural drying, contents remediation, renovation and demolition projects.</span></span></button></li>
-        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="1">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h12v8H14zM12 12h16l2 24H10z"/><path d="M30 8l5-2M30 12l6 1"/></svg>
-          <span><strong>Cleaning &amp; Janitorial</strong><span class="desc">Cleaning services and carpet cleaning for homes and businesses, with a free quote on your premises.</span></span></button></li>
-        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="2">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M6 35V12l10-6 10 6v23M26 18h8v17M4 35h32M11 16h4M17 16h4M11 22h4M17 22h4M11 28h4M17 28h4"/></svg>
-          <span><strong>Property management</strong><span class="desc">Property management and maintenance to help prevent future disasters occurring.</span></span></button></li>
-        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="3">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M8 28h18V14h-8l-4 8H8zM26 20h4l6 8H26"/><circle cx="12" cy="31" r="3"/><circle cx="23" cy="31" r="3"/></svg>
-          <span><strong>Skid steer services</strong><span class="desc">Skid steer work, debris removal and dumpster services.</span></span></button></li>
-        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="4">
-          <svg class="ico" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M20 36V18M20 18c-8 0-12-6-12-12 8 0 12 5 12 12zM20 22c6 0 10-5 10-10-6 0-10 4-10 10z"/><path d="M8 36h24"/></svg>
-          <span><strong>Landscaping services</strong><span class="desc">Landscaping in the warmer months and snow removal through Edmonton winters.</span></span></button></li>
+        <li><button role="tab" aria-selected="true" aria-controls="stage" data-i="0"><span class="ico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M5 19 20 6l15 13M9 16v18h22V16"/><path d="M20 19c-3 4-4 6-4 8a4 4 0 0 0 8 0c0-2-1-4-4-8z"/></svg></span><strong>Restoration projects</strong><i class="bar-p"></i></button></li>
+        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="1"><span class="ico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M14 4h12v8H14zM12 12h16l2 24H10z"/><path d="M30 8l5-2M30 12l6 1"/></svg></span><strong>Cleaning &amp; Janitorial</strong><i class="bar-p"></i></button></li>
+        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="2"><span class="ico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M6 35V12l10-6 10 6v23M26 18h8v17M4 35h32M11 16h4M17 16h4M11 22h4M17 22h4M11 28h4M17 28h4"/></svg></span><strong>Property management</strong><i class="bar-p"></i></button></li>
+        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="3"><span class="ico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M8 28h18V14h-8l-4 8H8zM26 20h4l6 8H26"/><circle cx="12" cy="31" r="3"/><circle cx="23" cy="31" r="3"/></svg></span><strong>Skid steer services</strong><i class="bar-p"></i></button></li>
+        <li><button role="tab" aria-selected="false" aria-controls="stage" data-i="4"><span class="ico"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M20 36V18M20 18c-8 0-12-6-12-12 8 0 12 5 12 12zM20 22c6 0 10-5 10-10-6 0-10 4-10 10z"/><path d="M8 36h24"/></svg></span><strong>Landscaping services</strong><i class="bar-p"></i></button></li>
       </ul>
       <div class="stage" id="stage" role="tabpanel" aria-live="polite">
-        <img class="on" src="images/restoration.jpg" alt="Restoration projects">
-        <img src="images/cleaning-janitorial.jpg" alt="Cleaning and janitorial">
-        <img src="images/property-management.jpg" alt="Property management">
-        <img src="images/skid-steer.jpg" alt="Skid steer services">
-        <img src="images/landscaping.jpg" alt="Landscaping services">
-        <a class="tag" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
+        <div class="slide on"><img src="images/restoration.jpg" alt="Restoration projects"><div class="cap"><div><h3>Restoration projects</h3><p>Water damage services, structural drying, contents remediation, renovation and demolition projects.</p></div><a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a></div></div>
+        <div class="slide"><img src="images/cleaning-janitorial.jpg" alt="Cleaning and janitorial"><div class="cap"><div><h3>Cleaning &amp; Janitorial</h3><p>Cleaning services and carpet cleaning for homes and businesses, with a free quote on your premises.</p></div><a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a></div></div>
+        <div class="slide"><img src="images/property-management.jpg" alt="Property management"><div class="cap"><div><h3>Property management</h3><p>Property management and maintenance to help prevent future disasters occurring.</p></div><a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a></div></div>
+        <div class="slide"><img src="images/skid-steer.jpg" alt="Skid steer services"><div class="cap"><div><h3>Skid steer services</h3><p>Skid steer work, debris removal and dumpster services.</p></div><a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a></div></div>
+        <div class="slide"><img src="images/landscaping.jpg" alt="Landscaping services"><div class="cap"><div><h3>Landscaping services</h3><p>Landscaping and snow removal.</p></div><a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a></div></div>
       </div>
     </div>
   </div>
@@ -358,111 +453,100 @@ footer .bottom a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 
 <section class="why">
   <div class="wrap">
-    <div class="side rv">
-      <h2 class="display">Why choose us</h2>
-      <p>Not all contractors are fully qualified for restoration work. Here is what you get with Rush Management.</p>
+    <div class="side">
+      <h2 class="display sec-h rv">Why choose us</h2>
+      <p class="lede rv d1">Not all contractors are fully qualified for restoration work. All of our technicians are fully certified and licensed to carry out work.</p>
+      <figure class="rv d2"><img src="images/about-restoration.jpg" alt="Rush Management crew removing damaged drywall and insulation"><figcaption><span class="dot"></span>Quick response, 24 hours a day</figcaption></figure>
     </div>
     <div class="points">
-      <div class="point rv">
-        <svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><path d="M27 4 7 22h5v26h30V22h5z"/><path d="M19 34l6 6 11-13"/></svg>
-        <div><h3>Experts second to none</h3><p>We are one of the most experienced and multi-service companies in Edmonton.</p></div>
-      </div>
-      <div class="point rv">
-        <svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><circle cx="27" cy="22" r="14"/><path d="M19 33l-4 17 12-6 12 6-4-17M21 22l4 4 8-8"/></svg>
-        <div><h3>Certified and licensed</h3><p>All of our technicians are fully certified and licensed to carry out work.</p></div>
-      </div>
-      <div class="point rv">
-        <svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><circle cx="27" cy="29" r="19"/><path d="M27 18v11l8 6M21 4h12M27 4v6"/></svg>
-        <div><h3>Quality service, quick response</h3><p>At our company, we pride ourselves on our quality of service and quick response.</p></div>
-      </div>
-      <div class="point rv">
-        <svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" aria-hidden="true"><path d="M27 4 8 11v14c0 12 8 21 19 25 11-4 19-13 19-25V11z"/><path d="M18 27l7 7 12-14"/></svg>
-        <div><h3>Insurance claims, handled</h3><p>We have a great deal of experience working with insurance claims, and we work with all major insurance companies so that you can have peace of mind.</p></div>
-      </div>
+      <div class="point rv"><div class="ic"><svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M27 4 7 22h5v26h30V22h5z"/><path d="M19 34l6 6 11-13"/></svg></div><h3>Experts second to none</h3><p>We are one of the most experienced and multi-service companies in Edmonton.</p></div>
+      <div class="point rv d1"><div class="ic"><svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><circle cx="27" cy="22" r="14"/><path d="M19 33l-4 17 12-6 12 6-4-17M21 22l4 4 8-8"/></svg></div><h3>Certified and licensed</h3><p>All of our technicians are fully certified and licensed to carry out work.</p></div>
+      <div class="point rv"><div class="ic"><svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><circle cx="27" cy="29" r="19"/><path d="M27 18v11l8 6M21 4h12M27 4v6"/></svg></div><h3>Quality service, quick response</h3><p>At our company, we pride ourselves on our quality of service and quick response.</p></div>
+      <div class="point rv d1"><div class="ic"><svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M27 4 8 11v14c0 12 8 21 19 25 11-4 19-13 19-25V11z"/><path d="M18 27l7 7 12-14"/></svg></div><h3>Insurance claims, handled</h3><p>We have a great deal of experience working with insurance claims. We work with all major insurance companies so that you can have peace of mind.</p></div>
     </div>
   </div>
 </section>
 
-<section class="spec">
+<section class="spec" aria-labelledby="spec-h">
   <div class="wrap">
-    <div class="side rv">
-      <h2 class="display">Specialties</h2>
-      <p>Residential and commercial work across Edmonton and surrounding areas.</p>
-    </div>
-    <ul class="rv">
-      <li>Water damage services</li>
-      <li>Mould remediation by third party referral company</li>
-      <li>Restoration projects</li>
-      <li>Renovation</li>
-      <li>Debris removal</li>
-      <li>Dumpster services</li>
-      <li>Skid steer services</li>
-      <li>Cleaning services</li>
-      <li>Property management</li>
-      <li>Landscaping</li>
-      <li>Snow removal</li>
-      <li>Demolition projects</li>
+    <h2 class="display sec-h rv" id="spec-h">Specialties</h2>
+    <p class="lede rv d1" style="margin:0">Residential and commercial work across Edmonton and surrounding areas.</p>
+  </div>
+  <div class="mq" aria-hidden="true"><ul><li>Water damage services</li><li class="o">Restoration projects</li><li>Renovation</li><li class="o">Demolition projects</li><li>Debris removal</li></ul><ul><li>Water damage services</li><li class="o">Restoration projects</li><li>Renovation</li><li class="o">Demolition projects</li><li>Debris removal</li></ul></div>
+  <div class="mq rev" aria-hidden="true"><ul><li class="o">Skid steer services</li><li>Cleaning services</li><li class="o">Property management</li><li>Landscaping</li><li class="o">Snow removal</li><li>Dumpster services</li></ul><ul><li class="o">Skid steer services</li><li>Cleaning services</li><li class="o">Property management</li><li>Landscaping</li><li class="o">Snow removal</li><li>Dumpster services</li></ul></div>
+  <div class="wrap list rv">
+    <ul>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Water damage services</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Mould remediation by third party referral company</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Restoration projects</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Renovation, restoration projects</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Debris removal, dumpster services</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Skid steer services</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Cleaning services</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Property management</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Landscaping, snow removal</li>
+      <li><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 0 14 7.7h-2.5V14h-9V7.7H0z" fill="currentColor"/></svg>Demolition projects</li>
     </ul>
   </div>
 </section>
 
 <section class="area">
   <div class="wrap">
-    <div class="radar rv" aria-hidden="true">
-      <svg viewBox="0 0 500 500">
-        <circle cx="250" cy="250" r="240" fill="none" stroke="#D9E0EC" stroke-width="1.5"/>
-        <circle cx="250" cy="250" r="170" fill="none" stroke="#D9E0EC" stroke-width="1.5"/>
-        <circle cx="250" cy="250" r="100" fill="none" stroke="#D9E0EC" stroke-width="1.5"/>
-        <circle class="pulse" cx="250" cy="250" r="240"/>
-        <circle class="pulse" cx="250" cy="250" r="240"/>
-        <circle class="pulse" cx="250" cy="250" r="240"/>
-        <path d="M250 10v480M10 250h480" stroke="#D9E0EC" stroke-width="1" stroke-dasharray="4 8"/>
-        <path d="M250 196l-34 30v30h68v-30z" fill="#204391"/>
-        <path d="M250 182l-46 40M250 182l46 40" stroke="#E51D35" stroke-width="7" stroke-linecap="round"/>
-        <rect x="243" y="236" width="14" height="20" fill="#fff"/>
-        <text x="250" y="296" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="20" font-weight="800" fill="#1F3E75">Edmonton</text>
-        <text x="250" y="320" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="14" fill="#55627D">and surrounding areas</text>
-      </svg>
-    </div>
-    <div class="rv">
-      <h2 class="display">Service area</h2>
-      <p>Rush Management provides residential and commercial services. We proudly serve Edmonton and surrounding areas.</p>
-      <p>Since we are locally owned and operated, we are ready to help 24 hours a day, 7 days a week.</p>
-      <div class="clock">
-        <div><b>24</b><span>hours a day</span></div>
-        <div><b>7</b><span>days a week</span></div>
+    <div class="area-card rv">
+      <div>
+        <h2 class="display sec-h">Service area</h2>
+        <p>Rush Management provides residential and commercial services. We proudly serve Edmonton and surrounding areas.</p>
+        <p>Since we are locally owned and operated, we are ready to help 24 hours a day, 7 days a week.</p>
+        <div class="clock"><div><b>24</b><span>hours a day</span></div><div><b>7</b><span>days a week</span></div></div>
+      </div>
+      <div class="radar" aria-hidden="true">
+        <svg viewBox="0 0 500 500">
+          <defs><linearGradient id="sw" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E51D35" stop-opacity="0"/><stop offset="1" stop-color="#E51D35" stop-opacity=".55"/></linearGradient></defs>
+          <circle cx="250" cy="250" r="240" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
+          <circle cx="250" cy="250" r="165" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+          <circle cx="250" cy="250" r="90" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+          <path d="M250 10v480M10 250h480" stroke="rgba(255,255,255,.14)" stroke-dasharray="4 8"/>
+          <g class="sweep"><path d="M250 250 L490 250 A240 240 0 0 0 420 80 Z" fill="url(#sw)"/></g>
+          <circle class="pulse" cx="250" cy="250" r="240"/><circle class="pulse p2" cx="250" cy="250" r="240"/><circle class="pulse p3" cx="250" cy="250" r="240"/>
+          <circle cx="250" cy="250" r="62" fill="#fff"/>
+          <path d="M250 222l-26 22v26h52v-26z" fill="#204391"/>
+          <path d="M250 210l-36 31M250 210l36 31" stroke="#E51D35" stroke-width="7" stroke-linecap="round"/>
+          <rect x="244" y="252" width="12" height="18" fill="#fff"/>
+          <text x="250" y="352" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="24" font-weight="800" fill="#fff">Edmonton</text>
+          <text x="250" y="378" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="15" fill="#C9D3E8">and surrounding areas</text>
+        </svg>
       </div>
     </div>
   </div>
 </section>
 
 <section class="visit">
-  <img src="images/home-visit.jpg" alt="Rush Management team arriving at a client's home">
+  <img src="images/home-visit.jpg" alt="Rush Management technician arriving at a client’s home on a winter evening">
   <div class="wrap">
     <h2 class="display rv">We come to your home or business</h2>
-    <p class="rv">Taking the stress out of any aspect of cleaning is what we specialize in. We will come to your premises and offer a free quote, so you know exactly what you’ll be spending. Why not contact us today?</p>
-    <a class="btn btn-red rv" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
+    <p class="rv d1">Taking the stress out of any aspect of cleaning is what we specialize in. We will come to your premises and offer a free quote, so you know exactly what you’ll be spending. Why not contact us today?</p>
+    <a class="btn btn-red rv d2" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <div class="stats">
-      <div><b data-count="100" data-suffix="%">100%</b><span>Satisfaction guarantee</span></div>
-      <div><b data-count="15">15</b><span>Years in business</span></div>
-      <div><b data-count="3500">3500</b><span>Successful projects</span></div>
+      <div><b><span data-count="100">100</span><em>%</em></b><span>Satisfaction guarantee</span></div>
+      <div><b><span data-count="15">15</span></b><span>Years in business</span></div>
+      <div><b><span data-count="3500">3500</span></b><span>Successful projects</span></div>
     </div>
   </div>
 </section>
 
 <section class="contact" id="contact">
-  <div class="wrap">
-    <div class="side rv">
-      <h2 class="display">Contact</h2>
-      <p>Call, email or visit us for a free quote on restoration, cleaning, property management, skid steer or landscaping work.</p>
-      <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote</a>
-    </div>
-    <div class="cards rv">
-      <a href="tel:7804699323"><small>Phone</small><strong>780-469-9323</strong></a>
-      <a href="tel:7803407646"><small>Phone</small><strong>780-340-7646</strong></a>
-      <a href="mailto:info@rushm.ca"><small>Email</small><strong>info@rushm.ca</strong></a>
-      <a href="https://rushmanagement.ca"><small>Website</small><strong>rushmanagement.ca</strong></a>
-      <div class="wide"><small>Office</small><strong>#101, 10940 166A Street, Edmonton, AB T5P 3V5</strong></div>
+  <div class="wrap rv">
+    <div class="pic"><img src="images/property-management.jpg" alt="Rush Management technician inspecting a home exterior"><span class="tag">Proudly serving Edmonton and surrounding areas</span></div>
+    <div class="info">
+      <h2 class="display sec-h">Contact</h2>
+      <p>Get in touch for a free quote.</p>
+      <ul class="clist">
+        <li><a href="tel:7804699323"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></i><span><small>Phone</small><b>780-469-9323</b></span></a></li>
+        <li><a href="tel:7803407646"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg></i><span><small>Phone</small><b>780-340-7646</b></span></a></li>
+        <li><a href="mailto:info@rushm.ca"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg></i><span><small>Email</small><b>info@rushm.ca</b></span></a></li>
+        <li><div><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-6.5 8-13a8 8 0 0 0-16 0c0 6.5 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg></i><span><small>Office</small><b>#101, 10940 166A Street, Edmonton, AB T5P 3V5</b></span></div></li>
+      </ul>
+      <a class="btn btn-red" href="https://rushmanagement.ca/request-a-quote-2/">Request a quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 </section>
@@ -471,19 +555,19 @@ footer .bottom a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 
 <footer>
   <div class="wrap">
-    <div class="top">
+    <div class="ft">
       <div>
         <img src="images/logo-white.png" alt="Rush Management Ltd." width="635" height="218">
-        <p>Residential and commercial services in Edmonton and surrounding areas.</p>
+        <p>Residential and commercial services in Edmonton and surrounding areas, ready to help 24 hours a day, 7 days a week.</p>
       </div>
       <div>
         <h4>Services</h4>
         <ul>
-          <li><a href="#services">Restoration projects</a></li>
-          <li><a href="#services">Cleaning &amp; Janitorial</a></li>
-          <li><a href="#services">Property management</a></li>
-          <li><a href="#services">Skid steer services</a></li>
-          <li><a href="#services">Landscaping services</a></li>
+          <li><a href="https://rushmanagement.ca/services/">Restoration projects</a></li>
+          <li><a href="https://rushmanagement.ca/services/">Cleaning &amp; Janitorial</a></li>
+          <li><a href="https://rushmanagement.ca/services/">Property management</a></li>
+          <li><a href="https://rushmanagement.ca/services/">Skid steer services</a></li>
+          <li><a href="https://rushmanagement.ca/services/">Landscaping services</a></li>
         </ul>
       </div>
       <div>
@@ -493,6 +577,7 @@ footer .bottom a{color:#fff;text-decoration:underline;text-underline-offset:3px}
           <li><a href="tel:7804699323">780-469-9323</a></li>
           <li><a href="tel:7803407646">780-340-7646</a></li>
           <li><a href="mailto:info@rushm.ca">info@rushm.ca</a></li>
+          <li><a href="https://rushmanagement.ca">rushmanagement.ca</a></li>
         </ul>
       </div>
     </div>
@@ -507,24 +592,36 @@ footer .bottom a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 
 <script>
 (function(){
-  // mobile menu
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // menu
   var mb=document.querySelector('.menu-btn'),nav=document.getElementById('nav');
   mb.addEventListener('click',function(){var o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)});
-  nav.addEventListener('click',function(e){if(e.target.tagName==='A'){nav.classList.remove('open');mb.setAttribute('aria-expanded',false)}});
-  // service switcher
-  var tabs=[].slice.call(document.querySelectorAll('.tabs button')),imgs=[].slice.call(document.querySelectorAll('.stage img'));
-  function show(i){tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i)});imgs.forEach(function(m,k){m.classList.toggle('on',k===i)})}
-  tabs.forEach(function(t,i){t.addEventListener('click',function(){show(i)});t.addEventListener('mouseenter',function(){if(matchMedia('(hover:hover)').matches)show(i)})});
+  // sticky bar
+  var bar=document.getElementById('bar'),hero=document.querySelector('.hero');
+  function onScroll(){bar.classList.toggle('fixed',window.scrollY>hero.offsetHeight*.55)}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  // services switcher with autoplay
+  var sw=document.getElementById('switch'),tabs=[].slice.call(sw.querySelectorAll('.tabs button')),slides=[].slice.call(sw.querySelectorAll('.slide')),cur=0,timer;
+  function show(i){cur=i;tabs.forEach(function(t,k){t.setAttribute('aria-selected',k===i)});slides.forEach(function(s,k){s.classList.toggle('on',k===i)});
+    tabs[i].querySelector('.bar-p').style.animation='none';void tabs[i].offsetWidth;tabs[i].querySelector('.bar-p').style.animation='';restart()}
+  function restart(){clearTimeout(timer);if(reduce)return;timer=setTimeout(function(){if(!sw.classList.contains('paused'))show((cur+1)%tabs.length);else restart()},6000)}
+  tabs.forEach(function(t,i){t.addEventListener('click',function(){show(i)})});
+  sw.addEventListener('mouseenter',function(){sw.classList.add('paused')});
+  sw.addEventListener('mouseleave',function(){sw.classList.remove('paused');restart()});
   document.querySelectorAll('.rail a').forEach(function(a){a.addEventListener('click',function(){show(+a.dataset.go)})});
-  // reveal + counters
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  restart();
+  // reveal
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
   document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // counters
   var co=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;co.unobserve(e.target);if(reduce)return;
-    var el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'',t0=null;
-    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1600,1),v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v+suf;if(p<1)requestAnimationFrame(step)}
+    var el=e.target,end=+el.dataset.count,t0=null;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1800,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}
     requestAnimationFrame(step)})},{threshold:.5});
   document.querySelectorAll('[data-count]').forEach(function(el){co.observe(el)});
+  // subtle parallax on hero visual
+  if(!reduce&&matchMedia('(hover:hover)').matches){var v=document.querySelector('.visual');
+    hero.addEventListener('mousemove',function(e){var r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;v.style.transform='translate('+x*-14+'px,'+y*-10+'px)'})}
 })();
 </script>
 </body>
